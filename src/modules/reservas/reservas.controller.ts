@@ -5,30 +5,10 @@ import { UpdateReservaDto } from './dto/update-reserva.dto';
 
 @Controller('reservas')
 export class ReservasController {
-  constructor(private readonly reservasService: ReservasService) {}
+  constructor(private readonly service: ReservasService) {}
 
-  @Post()
-  create(@Body() createReservaDto: CreateReservaDto) {
-    return this.reservasService.create(createReservaDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.reservasService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.reservasService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateReservaDto: UpdateReservaDto) {
-    return this.reservasService.update(+id, updateReservaDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.reservasService.remove(+id);
+  @Get("usuario/:id_usuario")
+  async findByUser(@Param("id_usuario")id_usuario: number) {
+    return await this.service.findByUser(+id_usuario)
   }
 }

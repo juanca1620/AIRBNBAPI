@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model apartments {
+  id           Int     @id @default(autoincrement())
+  lugar        String? @db.VarChar(100)
+  precio_noche Int?
+  descripcion  String? @db.Text
+  URL_imagen   String? @db.Text
+}
+
+model reservas {
+  id             Int       @id @default(autoincrement())
+  horaInicio     DateTime? @db.DateTime(0)
+  horaFinal      DateTime? @db.DateTime(0)
+  id_apartamento Int?
+  id_usuario     Int?
+
+  @@index([id_apartamento], map: "id_apartamento")
+  @@index([id_usuario], map: "id_usuario")
+}
+
+model users {
+  id       Int     @id @default(autoincrement())
+  UserName String? @db.VarChar(50)
+  Correo   String? @db.VarChar(100)
+  Contra   String? @db.VarChar(100)
+  Numero   String? @db.VarChar(15)
+  Cedula   String? @db.VarChar(20)
+}
